@@ -138,16 +138,22 @@ public class Track
 
 	public void cutAfter(int location)
 	{
-		List<TrackPoint> tps = new ArrayList<TrackPoint>(trackpoints.subList(0, location+1));
-		trackpoints.clear();
-		trackpoints.addAll(tps);
+		synchronized (trackpoints)
+		{
+			List<TrackPoint> tps = new ArrayList<TrackPoint>(trackpoints.subList(0, location+1));
+			trackpoints.clear();
+			trackpoints.addAll(tps);
+		}
 	}
 
 	public void cutBefore(int location)
 	{
-		List<TrackPoint> tps = new ArrayList<TrackPoint>(trackpoints.subList(location, trackpoints.size()));
-		trackpoints.clear();
-		trackpoints.addAll(tps);
+		synchronized (trackpoints)
+		{
+			List<TrackPoint> tps = new ArrayList<TrackPoint>(trackpoints.subList(location, trackpoints.size()));
+			trackpoints.clear();
+			trackpoints.addAll(tps);
+		}
 	}
 
 }
